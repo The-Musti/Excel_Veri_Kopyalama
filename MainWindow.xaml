@@ -1,0 +1,78 @@
+﻿<Window x:Class="Excel_Veri_Kopyalama.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Excel Mapper" Height="600" Width="900">
+
+    <!-- Ekranı sol menü ve sağ içerik olarak ikiye bölme -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sol Menü: Şablon seçim alanı -->
+        <Border Grid.Column="0" Background="#F5F5F5" BorderBrush="#DDD" BorderThickness="0,0,1,0">
+            <StackPanel Margin="10">
+
+                <!-- Tag değerleri C# tarafındaki TemplateType Enum değerlerine karşılık gelir (1=MB, 2=OPC vb.) -->
+                <RadioButton x:Name="Template1RadioButton" GroupName="Templates"
+                             Content="MB" Margin="0,0,0,10"
+                             Checked="TemplateRadioButton_Checked" Tag="1"/>
+                <RadioButton x:Name="Template2RadioButton" GroupName="Templates"
+                             Content="OPC" Margin="0,0,0,10"
+                             Checked="TemplateRadioButton_Checked" Tag="2"/>
+                <RadioButton x:Name="Template3RadioButton" GroupName="Templates"
+                             Content="ORT" Margin="0,0,0,10"
+                             Checked="TemplateRadioButton_Checked" Tag="3"/>
+                <RadioButton x:Name="Template4RadioButton" GroupName="Templates"
+                             Content="ANADOLU" Margin="0,0,0,10"
+                             Checked="TemplateRadioButton_Checked" Tag="4"/>
+                <RadioButton x:Name="Template5RadioButton" GroupName="Templates"
+                             Content="SMMP" Margin="0,0,0,10"
+                             Checked="TemplateRadioButton_Checked" Tag="5"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Sağ Alan: Opsiyonlar ve Sürükle-Bırak Kutusu -->
+        <Grid Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Sağ Üst: Dinamik Opsiyon Alanı (Noktasal Yangın, Kepware vb.) -->
+            <Border Grid.Row="0" BorderBrush="#DDD" BorderThickness="1"
+                    CornerRadius="6" Padding="15" Margin="0,0,0,15">
+
+                <!-- İçi boş bırakıldı çünkü buradaki butonlar C# tarafındaki UpdateOptionsUI metodu ile seçilen şablona göre otomatik çiziliyor -->
+                <StackPanel x:Name="OptionsPanel" Orientation="Horizontal">
+                </StackPanel>
+            </Border>
+
+            <!-- Sağ Alt: Dosya Sürükleme ve Seçme Alanı -->
+            <Border x:Name="DropZoneBorder" Grid.Row="1"
+                    BorderBrush="#AAAAAA" BorderThickness="2"
+                    CornerRadius="10" Background="#FAFAFA"
+                    AllowDrop="True"
+                    Drop="DropZone_Drop"
+                    DragEnter="DropZone_DragEnter"
+                    DragLeave="DropZone_DragLeave">
+                
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <!-- Kullanıcıyı yönlendiren ana metin -->
+                    <TextBlock x:Name="DropZoneText"
+                               Text="Excel dosyasını buraya sürükleyin"
+                               FontSize="16" Foreground="Gray"
+                               HorizontalAlignment="Center"/>
+
+                    <!-- Tıklanabilir alt metin. MouseLeftButtonUp olayı C# tarafında dosya seçme penceresini açar -->
+                    <TextBlock Text="veya tıklayarak seçin"
+                               FontSize="12" Foreground="#AAAAAA"
+                               HorizontalAlignment="Center" Margin="0,5,0,0"
+                               MouseLeftButtonUp="DropZoneText_Click"
+                               Cursor="Hand"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
