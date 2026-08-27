@@ -1,0 +1,1 @@
+# Excel_Veri_Kopyalama
